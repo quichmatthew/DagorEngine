@@ -50,7 +50,7 @@ Sources =
 
 CPPopt = -D__B_MINICORE ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     dbgStr.cpp
     findFile.cpp

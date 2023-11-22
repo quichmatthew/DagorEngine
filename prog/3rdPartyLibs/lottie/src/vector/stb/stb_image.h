@@ -592,7 +592,7 @@ typedef unsigned char validate_uint32[sizeof(stbi__uint32)==4 ? 1 : -1];
 #endif
 
 // x86/x64 detection
-#if defined(__x86_64__) || defined(_M_X64)
+#if defined(__x86_64__) || defined(_M_X64) || defined(_M_ARM64)
 #define STBI__X64_TARGET
 #elif defined(__i386) || defined(_M_IX86)
 #define STBI__X86_TARGET
@@ -621,6 +621,10 @@ typedef unsigned char validate_uint32[sizeof(stbi__uint32)==4 ? 1 : -1];
 //
 // So default to no SSE2 on 32-bit MinGW. If you've read this far and added
 // -mstackrealign to your build settings, feel free to #define STBI_MINGW_ENABLE_SSE2.
+#define STBI_NO_SIMD
+#endif
+
+#if defined(_M_ARM64) && !defined(STBI_NO_SIMD)
 #define STBI_NO_SIMD
 #endif
 

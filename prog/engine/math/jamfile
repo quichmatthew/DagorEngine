@@ -56,7 +56,7 @@ if $(DriverLinkage) = static {
 }
 
 CPPopt = -D__B_CORE ;
-if $(DriverLinkage) = dynamic && $(Platform) in win32 win64 { CPPopt += -D_DEBUG_TAB_ ; }
+if $(DriverLinkage) = dynamic && $(Platform) in win32 win64 winarm64 { CPPopt += -D_DEBUG_TAB_ ; }
 
 if $(DagorMath_MEASURE_PERF) {
   local suf = ~pm$(DagorMath_MEASURE_PERF) ;  if $(DagorMath_MEASURE_PERF_FRAMES) { suf = $(suf)-$(DagorMath_MEASURE_PERF_FRAMES) ; }

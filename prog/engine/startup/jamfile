@@ -30,7 +30,7 @@ Sources =
   ms_data.cpp
 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     mbWinReport.cpp
   ;

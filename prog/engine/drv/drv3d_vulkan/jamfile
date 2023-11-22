@@ -137,13 +137,13 @@ CPPopt = -DINSIDE_DRIVER ;
 if [ GLOB $(Root)/prog/3rdPartyLibs/nvapi : * ]     { CPPopt += -DHAS_NVAPI ; }
 if [ GLOB $(Root)/prog/3rdPartyLibs/nvsdk_ngx : * ] { CPPopt += -DHAS_NVSDK_NGX ; }
 
-if $(Platform) in android win32 win64 linux32 linux64 && $(Config) != rel {
+if $(Platform) in android win32 win64 winarm64 linux32 linux64 && $(Config) != rel {
   Sources += renderDoc_capture_module.cpp ;
 } else {
   Sources += renderDoc_capture_module_stub.cpp ;
 }
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     os_win32.cpp
   ;
@@ -176,7 +176,7 @@ if $(Config) != rel {
   UseProgLibs += gameLibs/imguiInput/stub ;
 }
 
-if $(Platform) in win32 win64 xboxOne scarlett { CPPopt += -FId3d_config.h ; } else { CPPopt += -include $(Root)/$(Location)/d3d_config.h ; }
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett { CPPopt += -FId3d_config.h ; } else { CPPopt += -include $(Root)/$(Location)/d3d_config.h ; }
 if $(Platform) = linux64 { CPPopt += -DUSE_X11 ; }
 
 AddIncludes =

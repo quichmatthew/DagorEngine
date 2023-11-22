@@ -26,7 +26,7 @@ if $(Platform) in ps4 ps5 {
   AddIncludes += $(Root)/prog/3rdPartyLibs/posix/include/ps4 ;
 }
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   AddLibs += Ws2_32.lib crypt32.lib ;
 }
 

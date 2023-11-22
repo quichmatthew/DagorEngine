@@ -37,7 +37,7 @@ CPPopt += -DD3DX12_NO_STATE_OBJECT_HELPERS ;
 if [ GLOB $(Root)/prog/3rdPartyLibs/nvapi : * ]     { CPPopt += -DHAS_NVAPI ; }
 if [ GLOB $(Root)/prog/3rdPartyLibs/nvsdk_ngx : * ] { CPPopt += -DHAS_NVSDK_NGX ; }
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     platform_pc.cpp
     debug/gpu_capture.cpp
@@ -64,11 +64,11 @@ if $(Platform) in win32 win64 {
   ;
 }
 
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   CPPopt += -FId3d_config.h ;
 }
 
-if ( $(Platform) in win32 win64 xboxOne scarlett ) {
+if ( $(Platform) in win32 win64 winarm64 xboxOne scarlett ) {
   CPPopt += -DUSE_RESOURCE_HEAPS=1 ;
 }
 
@@ -133,7 +133,7 @@ if $(Fsr2Enabled) = yes && $(Platform) = win64 {
 AddIncludes += $(Root)/prog/3rdPartyLibs/nvsdk_ngx/Include ;
 
 # for GPU crash dump sending
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   UseProgLibs +=
     gameLibs/eventLog
     1stPartyLibs/jsoncpp ;

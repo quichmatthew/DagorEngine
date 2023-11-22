@@ -96,7 +96,7 @@ if $(Platform) in scarlett ps5 {
   Copt += -DX86_AVX2 -DX86_AVX2_ADLER32 ;
 }
 
-if $(Platform) in nswitch android iOS {
+if $(Platform) in nswitch android iOS winarm64 {
   Sources += $(AllNEONSources:D=arch/arm) ;
   Copt += -DARM_FEATURES -DARM_NEON_SLIDEHASH -DARM_NEON_CHUNKSET -DARM_NEON_ADLER32 -DARM_NEON_HASLD4 ;
 }

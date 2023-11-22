@@ -121,6 +121,7 @@ void WinHwExceptionUtils::parseExceptionInfo(EXCEPTION_POINTERS *eptr, const cha
   }
 
   CONTEXT &ctx = *eptr->ContextRecord;
+#if !defined(_M_ARM64)
 #if !_TARGET_64BIT
   lbw.aprintf("   CS:%8X EIP:%8X  SS:%8X ESP:%8X EBP:%8X\n", ctx.SegCs, ctx.Eip, ctx.SegSs, ctx.Esp, ctx.Ebp);
   lbw.aprintf("  EAX:%8X EBX:%8X ECX:%8X EDX:%8X ESI:%8X EDI:%8X\n", ctx.Eax, ctx.Ebx, ctx.Ecx, ctx.Edx, ctx.Esi, ctx.Edi);
@@ -129,6 +130,7 @@ void WinHwExceptionUtils::parseExceptionInfo(EXCEPTION_POINTERS *eptr, const cha
   lbw.aprintf("  RIP:%16llX RSP:%16llX RBP:%16llX\n", ctx.Rip, ctx.Rsp, ctx.Rbp);
   lbw.aprintf("  RAX:%16llX RBX:%16llX RCX:%16llX\n  RDX:%16llX RSI:%16llX RDI:%16llX\n  EFLAGS:%08X\n", ctx.Rax, ctx.Rbx, ctx.Rcx,
     ctx.Rdx, ctx.Rsi, ctx.Rdi, ctx.EFlags);
+#endif
 #endif
   lbw.done();
 

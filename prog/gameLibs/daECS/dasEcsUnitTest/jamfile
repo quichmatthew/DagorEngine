@@ -33,7 +33,7 @@ if $(NeedDasAotCompile) = yes {
   local host_platform = ;
   local jam = $(Root)/$(Location)/aot/jamfile ;
 
-  if $(Platform) in win64 ps4 ps5 xboxOne android nswitch { host_platform = win64 ; }
+  if $(Platform) in win64 winarm64 ps4 ps5 xboxOne android nswitch { host_platform = win64 ; }
   else if $(Platform) in win32 { host_platform = win32 ; }
   else if $(Platform) in linux64 { host_platform = linux64 ; }
   else if $(Platform) in macosx iOS tvOS { host_platform = macosx ; }

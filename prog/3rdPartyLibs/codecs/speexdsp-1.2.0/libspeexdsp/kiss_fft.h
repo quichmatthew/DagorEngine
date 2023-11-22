@@ -22,7 +22,7 @@ extern "C" {
   in the tools/ directory.
 */
 
-#ifdef USE_SIMD
+#ifdef USE_SIMD && !defined(_M_ARM64)
 # include <xmmintrin.h>
 # define kiss_fft_scalar __m128
 #define KISS_FFT_MALLOC(nbytes) memalign(16,nbytes)

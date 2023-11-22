@@ -86,6 +86,10 @@ switch $(Platform) {
   case win64 : AddLibs += $(Root)/prog/3rdPartyLibs/adl_sdk/atimgpud_s_x64.lib Advapi32.lib ;
 }
 
+if $(Platform) = winarm64 {
+  CPPopt += -DSKIP_ATI_LIB ;
+}
+
 if $(DlssEnabled) = yes && $(Platform) = win64 && -DHAS_NVSDK_NGX in $(CPPopt) {
   Target = engine/drv/drv3d_commonCode~dlss.lib ;
   if $(Config) = dbg {

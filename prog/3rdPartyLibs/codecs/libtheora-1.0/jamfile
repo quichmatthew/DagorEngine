@@ -85,7 +85,7 @@ if $(Platform) = win32 {
 }
 
 # warning 4554| '>>' : check operator precedence for possible error; use parentheses to clarify precedence
-if $(Platform) in win32 win64 xboxOne scarlett { Copt += /wd4554 ; }
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett { Copt += /wd4554 ; }
 if $(Platform) in ps4 ps5 { Copt += -Wno-shift-op-parentheses ; }
 if $(PlatformSpec) in clang clang64 { Copt += -Wno-logical-op-parentheses -Wno-parentheses -Wno-tautological-compare ; }
 

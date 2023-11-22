@@ -47,6 +47,7 @@
       <word name="PlatformSpec"/>
       <word name="PlatformSpec_win32"/>
       <word name="PlatformSpec_win64"/>
+      <word name="PlatformSpec_winarm64"/>
       <word name="PlatformSpec_macosx"/>
       <word name="PlatformSpec_linux64"/>
       <word name="PlatformSpec_iOS"/>

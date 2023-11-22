@@ -56,7 +56,7 @@ if $(LOTTIE_USE_INTERNAL_STBI) = yes {
 if $(Platform) in win32 win64 linux64 xboxOne scarlett ps4 ps5 || ( $(Platform) = macosx && $(MacOSXArch) = x86_64 ) {
   Sources += src/vector/vdrawhelper_sse2.cpp ;
 }
-if $(Platform) in android iOS tvOS nswitch || ( $(Platform) = macosx && $(MacOSXArch) = arm64 ) {
+if $(Platform) in android iOS tvOS nswitch winarm64 || ( $(Platform) = macosx && $(MacOSXArch) = arm64 ) {
   Sources += src/vector/vdrawhelper_neon.cpp ;
   CPPopt += -D__NO_GAS_WITH_CPP__ ;
 }

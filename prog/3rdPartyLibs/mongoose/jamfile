@@ -27,7 +27,7 @@ if $(UseSystemOpenSSL) != yes {
 
 Copt += -DNO_CGI -DNO_SSL_DL -DNO_POPEN -DUSE_WEBSOCKET ;
 
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   Copt += /wd4267 ; # conversion from 'size_t' to 'int', possible loss of data
 }
 

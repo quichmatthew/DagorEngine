@@ -16,7 +16,7 @@ AddIncludes =
 
 Sources += src/dasStdDlg.cpp ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources += src/dasStdDlgWin.cpp ;
 } else if $(Platform) = linux64 {
   Sources += src/dasStdDlgGtk.cpp ;

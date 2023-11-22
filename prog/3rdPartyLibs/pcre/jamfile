@@ -7,7 +7,7 @@ Target          = 3rdPartyLibs/pcre.lib ;
 include $(Root)/prog/_jBuild/defaults.jam ;
 
 
-if $(Platform) in win32 win64 xboxOne scarlett
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett
 {
   AddIncludes = $(Root)/$(Location)/win32 ;
   Sources = win32/pcre_chartables.c ;

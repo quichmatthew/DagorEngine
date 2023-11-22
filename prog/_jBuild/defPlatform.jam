@@ -5,7 +5,7 @@ switch $(OS) {
 }
 AndroidArch ?= arm64-v8a ;
 
-if $(Platform) in win32 win64 macosx linux64 ps4 ps5 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 macosx linux64 ps4 ps5 xboxOne scarlett {
   PlatformDataFormatCode ?= PC ;
 } else if $(Platform) in iOS {
   PlatformDataFormatCode ?= iOS ;

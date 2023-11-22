@@ -73,7 +73,7 @@ inline int b3GetVersion()
 #if (defined(_M_IX86) || defined(_M_X64))
 
 
-#ifdef __clang__
+#if defined(__clang__) || defined(_M_ARM64)
 //#define B3_NO_SIMD_OPERATOR_OVERLOADS
 #define B3_DISABLE_SSE
 #endif //__clang__

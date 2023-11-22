@@ -59,7 +59,7 @@ rule CollectASM
   return [ SourceGlob $(1) : *.$(ASMExt) : $(2) ] ;
 }
 
-if $(Platform) in win32 android macosx tvOS iOS nswitch ps5 {
+if $(Platform) in win32 winarm64 android macosx tvOS iOS nswitch ps5 {
   NoASM = true ;
 }
 if $(Platform) = linux64 && $(LinuxArch) = e2k { NoASM = true ; }
@@ -81,7 +81,7 @@ if $(Platform) in xboxOne scarlett ps4 ps5 nswitch {
 }
 
 
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   Copt += -DNDEBUG
           -DOPENSSL_SYS_WIN32
           -DOPENSSL_NO_EC_NISTP_64_GCC_128
@@ -107,7 +107,7 @@ if $(Platform) in win32 win64 xboxOne scarlett {
     Copt += -DOPENSSL_IA32_SSE2 ;
   }
 
-  #if $(Platform) in win32 win64 {
+  #if $(Platform) in win32 win64 winarm64 {
   #   AddLibs += advapi32.lib ws2_32.lib gdi32.lib crypt32.lib user32.lib ;
   #}
 } else if $(Platform) in ps4 ps5 {

@@ -43,7 +43,7 @@ Sources =
   daProfilerSymbolsCache.cpp
 ;
 
-if $(Platform) in win32 win64 scarlett xboxOne {
+if $(Platform) in win32 win64 winarm64 scarlett xboxOne {
   Sources +=  stackUnwinder/unwindStackWin.cpp ;
 } else if $(Platform) in android {
   Sources +=  stackUnwinder/unwindStackAndroid.cpp ;

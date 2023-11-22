@@ -235,7 +235,7 @@ CPPopt =
   -DYYDEBUG=0
 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   CPPopt +=
     /d2Zi+
     -DWIN32

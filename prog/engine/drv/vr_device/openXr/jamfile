@@ -22,7 +22,7 @@ Sources =
 if $(Platform) = android {
   Sources += openXrAndroidLoader.cpp ;
   AddLibs += $(OpenXrSdkPath)/$(Platform)/arm64-v8a/Release/libopenxr_loader.so ;
-} else if $(Platform) in win32 win64 {
+} else if $(Platform) in win32 win64 winarm64 {
   AddLibs += $(OpenXrSdkPath)/$(Platform)/lib/openxr_loader.lib ;
 }
 

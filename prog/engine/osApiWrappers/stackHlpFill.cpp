@@ -341,23 +341,33 @@ static inline bool is_address_readable(const void *, bool d) { return d; }
 static unsigned fill_stack_walk_naked_unsafe(void **stack, unsigned size, CONTEXT &context, int frames_to_skip = 0) // requires copy of
                                                                                                                     // Context
 {
+#if !defined(_M_ARM64)
   if (context.Rip == 0 && context.Rsp != 0 && is_address_readable((const void *)context.Rsp, true))
   {
     context.Rip = (ULONG64)(*(PULONG64)context.Rsp);
     context.Rsp += 8; // reset the stack pointer (+8 since we know there has been no prologue run requiring a larger number since RIP
                       // == 0)
   }
+#endif
   // inside RtlLookupFunctionEntry there is an (optional) spinlock.
   // so, if we are calling those functions on suspended thread, we can face a deadlock
   // prevent it with tls and checking that tls
   int frameIter = -frames_to_skip;
+#if !defined(_M_ARM64)
   for (; context.Rip && frameIter < (int)size; ++frameIter)
+#else
+  for (; frameIter < (int)size; ++frameIter)
+#endif
   {
     PRUNTIME_FUNCTION pRuntimeFunction = nullptr;
     ULONG64 imageBase = 0;
 #define TRY       __try
 #define EXCEPT(a) __except (a)
+#if !defined(_M_ARM64)
     TRY { pRuntimeFunction = (PRUNTIME_FUNCTION)RtlLookupFunctionEntry(context.Rip, &imageBase, NULL); }
+#else
+    TRY { pRuntimeFunction = (PRUNTIME_FUNCTION)RtlLookupFunctionEntry(0, &imageBase, NULL); }
+#endif
     EXCEPT(EXCEPTION_EXECUTE_HANDLER) { break; }
 
     if (pRuntimeFunction)
@@ -367,11 +377,17 @@ static unsigned fill_stack_walk_naked_unsafe(void **stack, unsigned size, CONTEX
       // Under at least the XBox One platform, RtlVirtualUnwind can crash here.
       TRY
       {
+#if !defined(_M_ARM64)
         RtlVirtualUnwind(UNW_FLAG_NHANDLER, imageBase, context.Rip, pRuntimeFunction, &context, &handlerData, framePointers, NULL);
+#else
+        RtlVirtualUnwind(UNW_FLAG_NHANDLER, imageBase, 0, pRuntimeFunction, &context, &handlerData, framePointers, NULL);
+#endif
       }
       EXCEPT(EXCEPTION_EXECUTE_HANDLER)
       {
+#if !defined(_M_ARM64)
         context.Rip = 0;
+#endif
         context.ContextFlags = 0;
       }
     }
@@ -389,11 +405,12 @@ static unsigned fill_stack_walk_naked_unsafe(void **stack, unsigned size, CONTEX
     }
 #undef TRY
 #undef EXCEPT
-
+#if !defined(_M_ARM64)
     if (!context.Rip)
       break;
     if (uint32_t(frameIter) < size)
       stack[frameIter] = (void *)(uintptr_t)context.Rip;
+#endif
   }
   return frameIter > 0 ? frameIter : 0;
 }

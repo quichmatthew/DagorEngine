@@ -15,6 +15,7 @@ if $(OS) = LINUX {
 
 OutDir = $(Root)/tools/dagor3_cdk/util ;
 if $(Platform) = win64 { OutDir = $(OutDir)64 ; }
+if $(Platform) = winarm64 { OutDir = $(OutDir)ARM64 ; }
 if $(Platform) = linux64 { OutDir = $(OutDir)-linux64 ; }
 
 AddIncludes     = $(Root)/prog/tools/sharedInclude ;

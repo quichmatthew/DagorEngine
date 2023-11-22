@@ -61,7 +61,7 @@ if $(Platform) = linux64 {
     -lfltk-minimal
     -lX11
   ;
-} else if $(Platform) in win32 win64 {
+} else if $(Platform) in win32 win64 winarm64 {
   Sources += windows/main.cpp ;
   CPPopt += -DUNICODE -D_UNICODE ;
   LINKopt += -libpath:$(_DEVTOOL)/fltk-1.3.4/lib/win ;

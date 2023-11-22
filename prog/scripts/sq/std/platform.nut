@@ -10,7 +10,7 @@ let consoleModel = get_console_model()
 let isModel = @(model) consoleModel == model
 let consoleRevision = get_console_model_revision(consoleModel)
 
-let is_pc = oneOf("win32", "win64", "macosx", "linux64")
+let is_pc = oneOf("win32", "win64", "winarm64", "macosx", "linux64")
 let is_sony = oneOf("ps4", "ps5")
 let is_xbox = oneOf("xboxOne", "xboxScarlett")
 let is_nswitch = oneOf("nswitch")
@@ -53,7 +53,7 @@ return {
   consoleRevision
   platformAlias
   is_pc
-  is_windows = oneOf("win32", "win64")
+  is_windows = oneOf("win32", "win64", "winarm64")
   is_win32 = oneOf("win32")
   is_win64 = oneOf("win64")
   is_ps4 = oneOf("ps4")

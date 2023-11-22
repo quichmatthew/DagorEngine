@@ -38,7 +38,7 @@ if $(Platform) in macosx iOS tvOS {
     macMemInit.m
   ;
 }
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   Sources +=
     win32MoreCore.cpp
     dagmem_start.c

@@ -7,6 +7,7 @@ rule ValidateUseD3DMultiList
 {
   local valid_win32 = stub DX11 DX12 vulkan ;
   local valid_win64 = $(valid_win32) ;
+  local valid_winarm64 = stub DX11 DX12 ;
   local valid_macosx  = stub Metal ;
   local valid_linux64 = stub vulkan ;
   local valid_nswitch = stub vulkan ;
@@ -49,7 +50,7 @@ UseProgLibs =
   engine/drv/drv3d_$(UseD3DMultiList)
 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   if DX11 in $(UseD3DMultiList) || DX12 in $(UseD3DMultiList) { Sources += hlsl_dx.cpp ; }
   else { Sources += hlsl_stub.cpp ; }
 }

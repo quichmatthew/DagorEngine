@@ -475,6 +475,11 @@ Metrowerks:
 #  define POSH_CPU_STRING "ARM"
 #endif
 
+#if defined _M_ARM64
+#  define POSH_CPU_STRONGARM 1
+#  define POSH_CPU_STRING "ARM64"
+#endif
+
 #if defined mips || defined __mips__ || defined __MIPS__ || defined _MIPS
 #  define POSH_CPU_MIPS 1 
 #  if defined _R5900

@@ -24,7 +24,7 @@ Sources =
 ;
 
 CPPopt = -D__B_CORE ;
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   Sources +=
     initJoystick.cpp
     initJoystickXInput.cpp
@@ -33,7 +33,7 @@ if $(Platform) in win32 win64 xboxOne scarlett {
     idleCycle.cpp
   ;
 }
-if $(Platform) in win32 win64 { Sources += windows/threadedWindow.cpp ; }
+if $(Platform) in win32 win64 winarm64 { Sources += windows/threadedWindow.cpp ; }
 if $(Platform) in xboxOne scarlett {
   Sources +=
     xbox/keyboard.cpp

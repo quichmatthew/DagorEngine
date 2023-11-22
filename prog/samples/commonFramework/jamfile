@@ -19,12 +19,12 @@ Sources =
 ;
 AddIncludes = $(Root)/prog/gameLibs/publicInclude ;
 
-if $(Platform) in win32 win64 macosx iOS tvOS android nswitch linux64 {
+if $(Platform) in win32 win64 winarm64 macosx iOS tvOS android nswitch linux64 {
   Sources +=
     de3_freeCam_mk.cpp
   ;
 }
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     de3_gui_win.cpp
   ;

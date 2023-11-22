@@ -1149,7 +1149,11 @@ VECTORCALL VECMATH_FINLINE int v_test_vec_x_le_0(vec3f v);
 #if _TARGET_SIMD_SSE
   #include "dag_vecMath_pc_sse.h"
 #elif _TARGET_SIMD_NEON
+#if defined(_M_ARM64)
+  #include "dag_vecMath_pc_neon.h"
+#else
   #include "dag_vecMath_neon.h"
+#endif
 #else
  !error! unsupported target
 #endif

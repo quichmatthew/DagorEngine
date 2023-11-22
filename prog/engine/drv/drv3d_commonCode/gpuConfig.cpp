@@ -133,6 +133,7 @@ static bool verify_nvidia_settings(int active_vendor, const GpuVideoSettings &vi
 #pragma warning(disable : 4191)
 #endif
 
+#if !SKIP_ATI_LIB
 static bool verify_ati_settings(int active_vendor, const GpuVideoSettings &video, GpuDriverConfig &out_cfg)
 {
   if (!init_ati())
@@ -248,6 +249,7 @@ static bool verify_ati_settings(int active_vendor, const GpuVideoSettings &video
   close_ati();
   return true;
 }
+#endif // SKIP_ATI_LIB
 
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -582,8 +584,10 @@ void d3d_apply_gpu_settings(const GpuVideoSettings &video)
   if (verify_nvidia_settings(activeVendor, video, gpu_driver_config))
     gpu_driver_config.primaryVendor = D3D_VENDOR_NVIDIA;
 #endif
+#if !SKIP_ATI_LIB
   if (gpu_driver_config.primaryVendor == D3D_VENDOR_NONE && verify_ati_settings(activeVendor, video, gpu_driver_config))
     gpu_driver_config.primaryVendor = D3D_VENDOR_ATI;
+#endif // SKIP_ATI_LIB
 #endif
   if (gpu_driver_config.primaryVendor == D3D_VENDOR_NONE)
     gpu_driver_config.primaryVendor = activeVendor;

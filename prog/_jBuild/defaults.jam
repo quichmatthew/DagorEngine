@@ -13,6 +13,7 @@ if ! $(__DEFAULTS_INCLUDED) {
 
   PlatformSpec_win32 ?= vc16 ;
   PlatformSpec_win64 ?= vc16 ;
+  PlatformSpec_winarm64 ?= vc16 ;
   PlatformSpec_xboxOne ?= clang ;
   PlatformSpec_scarlett ?= clang ;
   PlatformSpec_ps4 ?= clang ;
@@ -32,6 +33,7 @@ if ! $(__DEFAULTS_INCLUDED) {
   switch $(Platform) {
     case win32 :   PlatformSpec ?= $(PlatformSpec_win32) ;
     case win64 :   PlatformSpec ?= $(PlatformSpec_win64) ;
+    case winarm64 :   PlatformSpec ?= $(PlatformSpec_winarm64) ;
     case xboxOne : PlatformSpec ?= $(PlatformSpec_xboxOne) ;
     case scarlett : PlatformSpec ?= $(PlatformSpec_scarlett) ;
     case ps4 :     PlatformSpec ?= $(PlatformSpec_ps4) ;
@@ -119,7 +121,7 @@ if ! $(__DEFAULTS_INCLUDED) {
     OpenSSLVer = 1.1 ;
   }
 
-  if ! $(Platform) in win32 win64 xboxOne scarlett { DisableUsingPCH ?= yes ; }
+  if ! $(Platform) in win32 win64 winarm64 xboxOne scarlett { DisableUsingPCH ?= yes ; }
 
   if ( $(Platform) in macosx iOS tvOS ) && $(Config) = dbg {
     DisableFusion ?= yes ;
@@ -241,6 +243,7 @@ if ! $(__DEFAULTS_INCLUDED) {
     switch $(Platform) {
       case win32    : fmod_platform = win ;
       case win64    : fmod_platform = win ;
+      case winarm64    : fmod_platform = win ;
       case linux64  : fmod_platform = linux ;
       case ps5      : fmod_platform = pentagon ;
       case xboxOne  : fmod_platform = gamecore ;
@@ -302,11 +305,11 @@ if ! $(__DEFAULTS_INCLUDED) {
     type ?= $(TargetType) ;
     if $(1:S) { return $(1) ; }
     if $(type) = exe {
-      if $(Platform) in win32 win64 xboxOne scarlett { return $(1).exe ; }
+      if $(Platform) in win32 win64 winarm64 xboxOne scarlett { return $(1).exe ; }
       if $(Platform) in ps4 ps5 { return $(1).self ; }
       if $(Platform) in android { return $(1:B=)/$(1:B).apk ; }
     } else if $(type) = dll {
-      if $(Platform) in win32 win64 xboxOne { return $(1).dll ; }
+      if $(Platform) in win32 win64 winarm64 xboxOne { return $(1).dll ; }
       if $(Platform) in ps4 ps5 { return $(1).prx ; }
       if $(Platform) in android { return $(1).so ; }
       if $(Platform) in macosx iOS tvOS {
@@ -347,7 +350,7 @@ if ! $(__DEFAULTS_INCLUDED) {
       }
     } else if $(PlatformSpec) in vc14 vc14u vc15 vc16 vc17 && $(VCUpdateVer) {
       PlatformOutputDir ?= $(PlatformSpec)-$(VCUpdateVer) ;
-    } else if $(PlatformSpec) = clang && $(Platform) in win32 win64 {
+    } else if $(PlatformSpec) = clang && $(Platform) in win32 win64 winarm64 {
       PlatformOutputDir ?= $(PlatformSpec)~$(CLangVer) ;
     } else if $(Platform) = linux64 && $(LinuxArch) != x86_64 {
       PlatformOutputDir ?= $(LinuxArch)~$(PlatformSpec) ;
@@ -381,7 +384,7 @@ if ! $(__DEFAULTS_INCLUDED) {
       out = $(Platform)~sdk$(AndroidSdkTarget)~$(AndroidApiVer)~m$(AndroidApiMinVer)~$(AndroidNdkVer)~$(AndroidArch)~$(PlatformOutputDir)~$(Config) ;
     } else if $(Platform) = nswitch {
       out = $(Platform)~$(NSwitchSdkVer)~$(PlatformOutputDir)~$(Config) ;
-    } else if $(Platform) in win32 win64 {
+    } else if $(Platform) in win32 win64 winarm64 {
       local ver = [ MATCH "([^\.]+)\.([^\.]+)\.(.*)" : $(WinSdkVer) ] ;
       if ! $(ver[3] { ver = [ MATCH "([^\.]+)\.(.*)" : $(WinSdkVer) ] ; }
       if ( ! $(ver[2]) ) || ( ! $(ver[1]) in win win32 ) { Exit bad WinSdkVer\=$(WinSdkVer) ; }
@@ -395,14 +398,14 @@ if ! $(__DEFAULTS_INCLUDED) {
       out = $(out)~cpp$(CPPStd) ;
     }
 
-    if $(Platform) in win32 win64 linux64 macosx && $(UseD3DMulti) = yes {
+    if $(Platform) in win32 win64 winarm64 linux64 macosx && $(UseD3DMulti) = yes {
       if ! -D_TARGET_D3D_MULTI in $(GlobalCPPopt) { GlobalCPPopt += -D_TARGET_D3D_MULTI ; }
       out = $(out)~m ;
     } else if $(Platform) in macosx iOS tvOS {
       out = $(out)~MTL ;
     }
 
-    if $(MSVectorcall) = yes && $(Platform) in win32 win64 xboxOne scarlett {
+    if $(MSVectorcall) = yes && $(Platform) in win32 win64 winarm64 xboxOne scarlett {
       out = $(out)~v ;
     }
 
@@ -414,7 +417,7 @@ if ! $(__DEFAULTS_INCLUDED) {
     if $(Platform) in win32 win64 macosx linux64 {
       out = $(out)~s$(SSEVersion) ;
     }
-    if $(Platform) in win32 win64 xboxOne scarlett {
+    if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
       switch $(VCMathOption) {
         case -fp:fast : # default choice and output name
         case -fp:precise : out = $(out)~fp ;

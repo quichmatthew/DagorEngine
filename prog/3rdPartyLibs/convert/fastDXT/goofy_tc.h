@@ -13,7 +13,11 @@ namespace goofy
 #include <stdint.h>
 
 // Enable SSE2 codec
+#if !defined(_M_ARM64)
 #define GOOFY_SSE2 (1)
+#else
+#define GOOFY_SSE2 (0)
+#endif
 
 #define goofy_restrict __restrict
 #define goofy_inline __forceinline

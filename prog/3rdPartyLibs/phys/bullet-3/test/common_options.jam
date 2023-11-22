@@ -18,11 +18,11 @@ UseProgLibs =
 ;
 
 include $(Root)/prog/3rdPartyLibs/phys/bullet-3/setup.jam ;
-if $(Platform) in win64 xboxOne scarlett { CPPopt += /wd4267 ; }
+if $(Platform) in win64 winarm64 xboxOne scarlett { CPPopt += /wd4267 ; }
 
 if $(PlatformSpec) = clang {
   CPPopt += -Wno-format -Wno-undefined-inline ;
-  if $(Platform) in win32 win64 xboxOne scarlett {
+  if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
     CPPopt += -fp:fast /clang:-fno-unsafe-math-optimizations ;
   } else {
     CPPopt += -ffast-math -fno-unsafe-math-optimizations ;

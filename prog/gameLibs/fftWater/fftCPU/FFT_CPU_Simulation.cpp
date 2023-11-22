@@ -54,7 +54,12 @@
 #endif
 
 #define DECLARE_INT_CONST(Name, Val) alignas(16) static const int Name##_PI32_[4] = {Val, Val, Val, Val};
+#if defined(_M_ARM64)
+#define DECLARE_CONST(Name, Val)     static const vec4f Name##_PS = v_make_vec4f(Val##f, Val##f, Val##f, Val##f);
+#else
 #define DECLARE_CONST(Name, Val)     static const vec4f Name##_PS = {Val##f, Val##f, Val##f, Val##f};
+#endif
+
 DECLARE_INT_CONST(SIGN_MASK_SINGLE, static_cast<int>(0x80000000))
 #define SIGN_MASK_SINGLE *(vec4f *)SIGN_MASK_SINGLE_PI32_
 DECLARE_INT_CONST(INV_SIGN_MASK_SINGLE, 0x7fffffff)

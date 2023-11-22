@@ -12,7 +12,7 @@ AddIncludes =
 
 Sources = folders.cpp ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     platform/windows.cpp
     platform/common.cpp

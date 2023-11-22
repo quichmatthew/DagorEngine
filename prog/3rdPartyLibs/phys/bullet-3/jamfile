@@ -49,13 +49,13 @@ AutoscanBuildLists $(_SrcDirs) : *.c : Sources ;
 AddIncludes = $(Root)/$(Location)/src ;
 
 include $(Root)/$(Location)/setup.jam ;
-if $(Platform) in win32 win64 { CPPopt += -D_CRT_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE -D_SCL_SECURE_NO_WARNINGS ; }
-if $(Platform) in win64 xboxOne scarlett { CPPopt += /wd4267 ; }
+if $(Platform) in win32 win64 winarm64 { CPPopt += -D_CRT_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_DEPRECATE -D_SCL_SECURE_NO_WARNINGS ; }
+if $(Platform) in win64 winarm64 xboxOne scarlett { CPPopt += /wd4267 ; }
 if $(Platform) in xboxOne scarlett { CPPopt += -DSetThreadIdealProcessor(X,Y)= ; }
 
 if $(PlatformSpec) in gcc clang { CPPopt += -Wno-unused-parameter -Wno-uninitialized -Wno-macro-redefined ; }
 if $(Platform) = linux64 || $(PlatformSpec) = clang {
-  if $(Platform) in win32 win64 xboxOne scarlett {
+  if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
     CPPopt += -fp:fast /clang:-fno-unsafe-math-optimizations ;
   } else {
     CPPopt += -ffast-math ;

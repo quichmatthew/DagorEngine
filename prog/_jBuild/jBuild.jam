@@ -57,7 +57,7 @@ rule CheckParams
     switch $(OS) {
       case MACOSX : __Platform = macosx iOS tvOS android ;
       case LINUX :  __Platform = linux64 android ;
-      case * :      __Platform = win32 win64 xboxOne ps4 ps5 android nswitch scarlett ;
+      case * :      __Platform = win32 win64 winarm64 xboxOne ps4 ps5 android nswitch scarlett ;
     }
 
     local __iOSArch     = i386 armv7 armv7s arm64 arm64e ;
@@ -652,7 +652,7 @@ rule LinkTarget
   Depends $(1) : $(2) ;
   MakeDirectory $(1) : $(1:D) ;
 
-  if $($(3)__TargetType) = dll && $(Platform) in win32 win64 && $($(3)__HideExports) = yes && $(_VC_DIR) {
+  if $($(3)__TargetType) = dll && $(Platform) in win32 win64 winarm64 && $($(3)__HideExports) = yes && $(_VC_DIR) {
     if $(PlatformSpec) = vc16
     {
       $(3)__POSTLINK_CMD =
@@ -1350,7 +1350,7 @@ rule LinkExeSetBuildStamp
 
     if $(Platform) in macosx linux64 iOS tvOS android ps4 ps5 nswitch || $(PlatformSpec) = clang {
       $(t)__PRELINK_CMD = call $(_C_COMPILER) -o $(out) $(Root)/prog/_jBuild/$(bs_fn).c ;
-    } else if $(Platform) in win32 win64 xboxOne scarlett {
+    } else if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
       $(t)__PRELINK_CMD = call $(_C_COMPILER) -nologo -c \#\\\(-Fo$(out) -Fd$(out:S=.pdb) $(Root)/prog/_jBuild/$(bs_fn).c\)\\\# ;
     }
   }
@@ -1701,7 +1701,7 @@ if $(ReproducibleExeBuild) = yes {
       local target_pdb = ;
       if $(NoPDB) != yes { target_pdb = $($(t)__PDB) ; }
 
-      if $(OS) = NT && $(Platform) in win32 win64 {
+      if $(OS) = NT && $(Platform) in win32 win64 winarm64 {
         $(t)__POSTLINK_CMD =
           set_filter nul /Patching/$(NEWLINE_STR_)
           call_filtered $(_DEVTOOL)/ducible.exe $(target_exe) $(target_pdb) $(NEWLINE_STR_)
@@ -1954,7 +1954,7 @@ for t_lev in 0 1 2 3 4 5 6 7 8 {
         if $(l) = $(l:D=) {
           sys_libs += $(l) ;
         } else if [ MATCH $(_Output)/(.*)-imp\.lib : $(l) ] {
-          if $(Platform) in win32 win64 xboxOne {
+          if $(Platform) in win32 win64 winarm64 xboxOne {
             link_libs += $(l) ;
           } else if $(Platform) in linux64 {
             local m = [ MATCH lib(.*)-imp\.lib : $(l:D=) ] ;

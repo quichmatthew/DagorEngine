@@ -47,7 +47,7 @@ if $(Headless) = yes {
   ;
 }
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   UseProgLibs +=
     tools/libTools/shaderResBuilder
     tools/libTools/dagFileRW

@@ -7,10 +7,12 @@
 #define RAPIDJSON_ASSERT G_ASSERT
 #endif
 
+#if !defined(_M_ARM64)
 #ifdef __AVX__
 #define RAPIDJSON_SSE42 1
 #elif (_TARGET_SIMD_SSE >= 2)
 #define RAPIDJSON_SSE2 1
+#endif
 #endif
 
 #endif // _GAIJIN_DASCRIPT_MODULES_RAPIDJSON_RAPIDJSONCONFIG_H_

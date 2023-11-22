@@ -17,6 +17,7 @@ Target = tools/dsc2-nodeBased.exe ;
 
 OutDir      = $(Root)/tools/dagor3_cdk/util ;
 if $(Platform) = win64 { OutDir = $(OutDir)64 ; }
+if $(Platform) = winarm64 { OutDir = $(OutDir)ARM64 ; }
 
 NodeBasedCompiler = yes ;
 DontUseVulkanGlslang = yes ;
@@ -62,7 +63,7 @@ UseProgLibs =
 UseMemoryDebugLevel = off ;
 
 CPPopt = -DBINDUMP_TARGET_BE=0 -DIS_OFFLINE_SHADER_COMPILER=1 ;
-if $(Platform) in win32 win64 { VCMathOption = -fp:precise ; }
+if $(Platform) in win32 win64 winarm64 { VCMathOption = -fp:precise ; }
 
 if [ GLOB $(_DEVTOOL)/ps4.sdk.$(PS4SdkVer) : * ] && [ GLOB $(Root)/prog/tools/ShaderCompiler2/ps4transcode :  jamfile ] {
 

@@ -52,7 +52,7 @@ Sources =
 	tif_stream.cxx
 ;
 
-if $(Platform) in win32 win64 { Sources += tif_win32.c ; }
+if $(Platform) in win32 win64 winarm64 { Sources += tif_win32.c ; }
 if $(Platform) in linux64 macosx { Sources += tif_unix.c ; }
 
 AddIncludes =

@@ -9,7 +9,7 @@ Target      = engine/osApiWrappers/messageBox.lib ;
 
 CPPopt = -D__B_MINICORE -D__B_NO_MEM_BASE_INCLUDE=1 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   Sources +=
     messageBox.cpp
   ;

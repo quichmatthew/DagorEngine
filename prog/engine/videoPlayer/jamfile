@@ -9,7 +9,7 @@ Target      = engine/videoPlayer.lib ;
 
 AddIncludes = $(Root)/prog/3rdPartyLibs/codecs/include ;
 
-if $(Platform) in win32 win64 xboxOne scarlett ps4 ps5 linux64 macosx android iOS tvOS {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett ps4 ps5 linux64 macosx android iOS tvOS {
 
   AddIncludes += $(Root)/prog/3rdPartyLibs/codecs/dav1d/include
               $(Root)/prog/3rdPartyLibs/codecs/dav1d/include/common
@@ -24,6 +24,10 @@ if $(Platform) in win32 win64 xboxOne scarlett ps4 ps5 linux64 macosx android iO
 
   if $(Platform) = win32 {
     AddIncludes += $(Root)/prog/3rdPartyLibs/codecs/dav1d/generated/win32 ;
+  }
+
+  if $(Platform) = winarm64 {
+    AddIncludes += $(Root)/prog/3rdPartyLibs/codecs/dav1d/generated/winarm64 ;
   }
 
   if $(Platform) = linux64 {

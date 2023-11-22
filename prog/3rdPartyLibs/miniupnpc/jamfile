@@ -10,7 +10,7 @@ AddIncludes =
   $(Root)/$(Location)
 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   AddIncludes += $(Root)/$(Location)/_build_win32 ;
   Copt += -D_CRT_SECURE_NO_WARNINGS -DWINSOCK_DEPRECATED_NO_WARNINGS /wd4267 ;
 } else if $(Platform) in linux64 {

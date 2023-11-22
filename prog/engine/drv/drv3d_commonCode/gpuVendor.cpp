@@ -225,7 +225,11 @@ void gpu::get_video_ati_str(String &out_str)
   int platform = 0;
   ADL_Graphics_Platform_Get(&platform);
 
+#if !SKIP_ATI_LIB
   int mgpuCount = AtiMultiGPUAdapters();
+#else
+  int mgpuCount = 1;
+#endif
   if (mgpuCount < 1)
   {
     ADL_Main_Control_Destroy();

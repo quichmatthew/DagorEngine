@@ -62,7 +62,7 @@ if $(Platform) = android || ( $(Platform) = macosx && $(MacOSXArch) = arm64 ) {
   Sources +=
     src/impl_x86_windows.c
   ;
-} else if $(Platform) in win32 win64 {
+} else if $(Platform) in win32 win64 winarm64 {
   Sources +=
     src/impl_x86_windows.c
   ;

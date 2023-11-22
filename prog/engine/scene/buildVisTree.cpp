@@ -78,7 +78,11 @@ static inline void set_bbox_sr2(bbox3f &b, vec4f sr2_x, vec4f msor2_w)
 
 void BuildVisTree::recursiveBuild(int node_id)
 {
+#if defined(_M_ARM64)
+  static vec4f_const c16 = v_make_vec4f(16.0f, 16.0f, 16.0f, 16.0f);
+#else
   static vec4f_const c16 = {16.0f, 16.0f, 16.0f, 16.0f};
+#endif
   int depth = node_id >> 16;
   HierVisNode &node = buildList[node_id & 0xFFFF];
   int start = node.childFirst;

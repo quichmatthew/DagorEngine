@@ -155,7 +155,7 @@
 #  define PREFETCH_L1(addr)     __builtin_prefetch(addr, 0, 3)
 #  define PREFETCH_L2(addr)     __builtin_prefetch(addr, 0, 2)
 #  define PREFETCH_RW(addr)     __builtin_prefetch(addr, 1, 2)
-#elif defined(__WIN__)
+#elif defined(__WIN__) && !defined(_M_ARM64)
 #  include <xmmintrin.h>
 #  define LIKELY_NULL(x)        x
 #  define LIKELY(x)             x

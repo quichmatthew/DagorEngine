@@ -16,7 +16,9 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif
+#if !defined(_M_ARM64)
 #pragma intrinsic(__popcnt)
+#endif
 #pragma intrinsic(_BitScanForward)
 #pragma intrinsic(_BitScanReverse)
 #endif
@@ -39,7 +41,7 @@ inline int __popcount(unsigned v) { return __builtin_popcount(v); }
 #else
 inline int __popcount(unsigned v)
 {
-#if defined(_MSC_VER) && _TARGET_64BIT
+#if defined(_MSC_VER) && _TARGET_64BIT && !defined(_M_ARM64)
   return __popcnt(v);
 #else // sw implementation
   v = v - ((v >> 1) & 0x55555555);                       // reuse input as temporary
@@ -50,7 +52,7 @@ inline int __popcount(unsigned v)
 #endif
 
 
-#if _TARGET_SIMD_SSE || defined(__GNUC__)
+#if _TARGET_SIMD_SSE || defined(__GNUC__) || defined(_M_ARM64)
 #define HAS_BIT_SCAN_FORWARD 1
 #if defined(__GNUC__)
 
@@ -84,7 +86,7 @@ inline int __bit_scan_reverse(unsigned int &index, unsigned int val)
   return 1;
 }
 
-#elif _TARGET_PC_WIN | _TARGET_XBOX
+#elif _TARGET_PC_WIN | _TARGET_XBOX | defined(_M_ARM64)
 
 inline unsigned __bsf(int v)
 {

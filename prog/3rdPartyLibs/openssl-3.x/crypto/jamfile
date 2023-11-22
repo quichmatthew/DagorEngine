@@ -162,7 +162,7 @@ if ! $(NoASM) {
   ;
 }
 
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   Sources +=
     crypto/threads_win.c
     crypto/async/arch/async_win.c

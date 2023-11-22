@@ -26,6 +26,10 @@
 #ifndef SQUISH_SIMD_SSE_H
 #define SQUISH_SIMD_SSE_H
 
+#if defined(_TARGET_SIMD_NEON)
+#include "simd_float.h"
+#else
+
 #include <xmmintrin.h>
 #if ( SQUISH_USE_SSE > 1 )
 #include <emmintrin.h>
@@ -189,5 +193,6 @@ private:
 };
 
 } // namespace squish
+#endif // _TARGET_SIMD_NEON
 
 #endif // ndef SQUISH_SIMD_SSE_H

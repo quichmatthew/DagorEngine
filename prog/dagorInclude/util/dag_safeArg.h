@@ -17,8 +17,17 @@ typedef float __vec4f __attribute__((__vector_size__(16), __may_alias__));
 typedef long long __vec4i __attribute__((__vector_size__(16), __may_alias__));
 #endif
 #elif _TARGET_SIMD_NEON
+#ifdef __clang__
 typedef __attribute__((neon_vector_type(4))) float __vec4f;
 typedef __attribute__((neon_vector_type(4))) int __vec4i;
+#elif defined(_MSC_VER)
+typedef struct __declspec(intrin_type) __declspec(align(16)) __vec4f;
+typedef struct __declspec(intrin_type) __declspec(align(16)) __vec4i;
+#elif defined(__GNUC__)
+typedef float __vec4f __attribute__((__vector_size__(16), __may_alias__));
+typedef long long __vec4i __attribute__((__vector_size__(16), __may_alias__));
+#endif
+
 #endif
 
 #ifdef __cplusplus

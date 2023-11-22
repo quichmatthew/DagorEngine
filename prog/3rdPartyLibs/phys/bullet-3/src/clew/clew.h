@@ -344,7 +344,9 @@ float nanf(const char *);
 #if defined(__MINGW64__)
 #include <intrin.h>
 #else
+#if !defined(_M_ARM64)
 #include <xmmintrin.h>
+#endif
 #endif
 #if defined(__GNUC__) && !defined(__ICC)
 	typedef float __cl_float4 __attribute__((vector_size(16)));

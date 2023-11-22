@@ -30,7 +30,7 @@ if $(UseWholeOpt) != yes {
   UseLLDLink ?= yes ;
 }
 
-if $(Platform) in win32 win64 && $(Config) != rel && $(Sanitize) != address { UseMemoryDebugLevel = dbg ; }
+if $(Platform) in win32 win64 winarm64 && $(Config) != rel && $(Sanitize) != address { UseMemoryDebugLevel = dbg ; }
 
 OutDir = $(Root)/$(Location)/../game ;
 
@@ -79,7 +79,7 @@ UseProgLibs =
   gameLibs/folders
 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   UseProgLibs +=
     engine/drv/hid_mouse
     engine/drv/hid_keyboard

@@ -32,7 +32,7 @@ if ( $(Platform) in win32 ) || ( $(Platform) = linux64 && $(LinuxArch) = e2k ) {
     blake3_sse2_x86-64_unix.S
     blake3_sse41_x86-64_unix.S
   ;
-} else if $(Platform) in iOS tvOS nswitch android || ( $(Platform) = macosx && $(MacOSXArch) = arm64 ) {
+} else if $(Platform) in iOS tvOS nswitch winarm64 android || ( $(Platform) = macosx && $(MacOSXArch) = arm64 ) {
   Sources += blake3_neon.c ;
   Copt = -DBLAKE3_USE_NEON ;
 }

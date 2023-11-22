@@ -17,6 +17,7 @@ Target      = tools/dargbox ;
 
 switch $(Platform) {
   case win64 :   Target      = tools/dargbox-64 ;
+  case winarm64 :   Target      = tools/dargbox-ARM64 ;
 }
 
 if $(Config) = rel { # this is only needed to build with warnings-as-errors
@@ -119,7 +120,7 @@ UseProgLibs =
   1stPartyLibs/daScript
 ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   UseProgLibs +=
     engine/drv/hid_mouse
     engine/drv/hid_keyboard

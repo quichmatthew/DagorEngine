@@ -76,7 +76,7 @@ FmodStaticLibs =
 
 if $(Platform) in ps4 ps5 {
   soname_suffix = .prx ;
-} else if $(Platform) in win32 win64 xboxOne scarlett {
+} else if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   soname_suffix = .dll ;
 }
 

@@ -11528,6 +11528,17 @@ IMPLEMENTATION
 #define MA_ARM
 #endif
 
+#if defined(_M_ARM64)
+#if !defined(MA_NO_SSE2)
+#define MA_NO_SSE2
+#endif
+
+#if !defined(MA_NO_AVX2)
+#define MA_NO_AVX2
+#endif
+
+#endif
+
 /* Intrinsics Support */
 #if (defined(MA_X64) || defined(MA_X86)) && !defined(__COSMOPOLITAN__)
     #if defined(_MSC_VER) && !defined(__clang__)

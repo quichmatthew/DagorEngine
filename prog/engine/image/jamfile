@@ -35,7 +35,7 @@ Sources =
   regImageLoadAvif.cpp
 ;
 
-if ( $(Platform) in win32 win64 ps4 ps5 macosx linux64 xboxOne scarlett nswitch android ) {
+if ( $(Platform) in win32 win64 winarm64 ps4 ps5 macosx linux64 xboxOne scarlett nswitch android ) {
   Sources +=
     dxtCompress.cpp
   ;

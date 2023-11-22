@@ -4,7 +4,9 @@
 #include <EASTL/variant.h>
 #include <EASTL/fixed_vector.h>
 #include <osApiWrappers/dag_events.h>
+#if !defined(_M_ARM64)
 #include <emmintrin.h>
+#endif
 #include <3d/dag_drvDecl.h>
 #include <osApiWrappers/dag_threads.h>
 #include <3d/dag_drv3dConsts.h>
@@ -845,7 +847,9 @@ inline void try_and_wait_with_os_event(os_event_t &event, uint32_t spin_count, T
   {
     if (check())
       return;
+#if !defined(_M_ARM64)
     _mm_pause();
+#endif
   }
   for (;;)
   {

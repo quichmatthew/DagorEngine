@@ -73,7 +73,7 @@ local AllSrcFolder_CPP =
 AutoscanBuildLists $(AllSrcFolder_CPP) : *.cpp       : Sources ;
 
 local ExcOpt ;
-if $(Platform) in win32 win64 xboxOne scarlett {
+if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
   ExcOpt += /EHsc -D_HAS_EXCEPTIONS=1 -DDAS_ENABLE_EXCEPTIONS=1 ;
   if $(PlatformSpec) = clang { ExcOpt += -Wno-macro-redefined ; } # for _HAS_EXCEPTIONS=0 -> 1 overwrite
 } else {

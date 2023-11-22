@@ -17,7 +17,7 @@
 // in that case, you can't rely on consistency of profile_ref_ticks functions (you can still use it for profiling), as it can goes back
 // in time it is still safe, if you don't assume it always return 'reasonable' values.
 
-#if _TARGET_SIMD_NEON && !_TARGET_C3
+#if _TARGET_SIMD_NEON && !_TARGET_C3 && !defined(_M_ARM64)
 
 #define NATIVE_PROFILE_TICKS 1
 

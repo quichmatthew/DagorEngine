@@ -273,7 +273,11 @@ VECTORCALL VECMATH_FINLINE void v_mat44_transpose_to_mat33(mat33f &dest, vec3f c
 
 VECTORCALL VECMATH_FINLINE vec4f v_remove_not_finite(vec4f a)
 {
+#if _M_ARM64
+  static vec4i_const infMask = v_make_vec4i(0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000);
+#else
   static vec4i_const infMask = { 0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000 };
+#endif // _M_ARM64
   vec4i ai = v_cast_vec4i(a);
   return v_cast_vec4f(v_andnoti(v_cmp_eqi(v_andi(ai, infMask), infMask), ai));
 }

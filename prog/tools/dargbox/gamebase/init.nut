@@ -3,7 +3,7 @@ local { get_platform_string_id } = require("platform")
 local platformId = dgs_get_settings().getStr("platform", get_platform_string_id())
 
 
-if (["win32", "win64"].contains(platformId)) {
+if (["win32", "win64", "winarm64"].contains(platformId)) {
   let info = get_primary_screen_info()
   let {
 //    vertDpi,

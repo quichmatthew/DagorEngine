@@ -113,7 +113,7 @@ rule GenESSourceFile
 
   ForceGenES ?= no ;
   if $(ForceGenES) = no {
-    if ! $(Platform) in win32 win64 linux64 { return ; }
+    if ! $(Platform) in win32 win64 winarm64 linux64 { return ; }
   }
   if ! $(PYTHON_EXE) { Exit Unsupported HOST\: $(OS) ; }
 

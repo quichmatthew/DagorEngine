@@ -81,6 +81,9 @@ static __inline__ unsigned long long __rdtsc()
 
 static __inline__ unsigned long long __rdtsc() { return 0; }
 
+#elif _M_ARM64
+#define PREFETCH_DATA(ofs, base) ((void)0)
+
 #else
 
 #error Unrecognized target

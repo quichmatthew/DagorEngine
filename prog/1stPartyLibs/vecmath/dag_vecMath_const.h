@@ -94,7 +94,6 @@
   #define V_C_MIN_VAL         vdupq_n_f32(-1e32f)
   #define V_C_EPS_VAL         vdupq_n_f32(1.192092896e-07f)
   #define V_C_VERY_SMALL_VAL  vdupq_n_f32(4e-19f)              // ~sqrt(FLT_MIN), safe threshold for passing argument to rcp(x)
-  #define V_C_INF             vdupq_n_f32(__builtin_inff())
 
   #define V_CI_SIGN_MASK      vdupq_n_s32(0x80000000)
   #define V_CI_INV_SIGN_MASK  vdupq_n_s32(0x7FFFFFFF)
@@ -109,6 +108,40 @@
   #define V_CI_2              vdupq_n_s32(2)
   #define V_CI_3              vdupq_n_s32(3)
   #define V_CI_4              vdupq_n_s32(4)
+
+#if defined(_M_ARM64)
+  #define V_C_INF             vdupq_n_f32(INFINITY)
+
+  #define DECL_VECFLOAT4(a, b, c, d) v_make_vec4f(a, b, c, d)
+  #define DECL_VECUINT4(a, b, c, d) v_make_vec4i(a, b, c, d)
+
+  #define V_CI2_MASK10       v_make_vec2i( -1, 0 )
+  #define V_CI2_MASK01       v_make_vec2i( 0, -1 )
+
+  #define V_C_UNIT_1000       DECL_VECFLOAT4( 1.0f, 0.0f, 0.0f, 0.0f )
+  #define V_C_UNIT_0100       DECL_VECFLOAT4( 0.0f, 1.0f, 0.0f, 0.0f )
+  #define V_C_UNIT_0010       DECL_VECFLOAT4( 0.0f, 0.0f, 1.0f, 0.0f )
+  #define V_C_UNIT_0001       DECL_VECFLOAT4( 0.0f, 0.0f, 0.0f, 1.0f )
+  #define V_C_UNIT_1110       DECL_VECFLOAT4( 1.0f, 1.0f, 1.0f, 0.0f )
+  #define V_C_UNIT_0011       DECL_VECFLOAT4( 0.0f, 0.0f, 1.0f, 1.0f )
+
+  #define V_CI_MASK0000       vdupq_n_s32(0)
+  #define V_CI_MASK1000       DECL_VECUINT4( -1, 0, 0, 0 )
+  #define V_CI_MASK0100       DECL_VECUINT4( 0, -1, 0, 0 )
+  #define V_CI_MASK0010       DECL_VECUINT4( 0, 0, -1, 0 )
+  #define V_CI_MASK0001       DECL_VECUINT4( 0, 0, 0, -1 )
+  #define V_CI_MASK1100       DECL_VECUINT4( -1, -1, 0, 0 )
+  #define V_CI_MASK0110       DECL_VECUINT4( 0, -1, -1, 0 )
+  #define V_CI_MASK0011       DECL_VECUINT4( 0, 0, -1, -1 )
+  #define V_CI_MASK1010       DECL_VECUINT4( -1, 0, -1, 0 )
+  #define V_CI_MASK0101       DECL_VECUINT4( 0, -1, 0, -1 )
+  #define V_CI_MASK1110       DECL_VECUINT4( -1, -1, -1, 0 )
+  #define V_CI_MASK1101       DECL_VECUINT4( -1, -1, 0, -1 )
+  #define V_CI_MASK1011       DECL_VECUINT4( -1, 0, -1, -1 )
+  #define V_CI_MASK0111       DECL_VECUINT4( 0, -1, -1, -1 )
+  #define V_CI_MASK1111       DECL_VECUINT4( -1, -1, -1, -1 )
+#else
+  #define V_C_INF             vdupq_n_f32(__builtin_inff())
 
   #define DECL_VECFLOAT4      (float32x4_t)
   #define DECL_VECUINT4       (int32x4_t)
@@ -138,6 +171,7 @@
   #define V_CI_MASK1011       DECL_VECUINT4{ -1, 0, -1, -1 }
   #define V_CI_MASK0111       DECL_VECUINT4{ 0, -1, -1, -1 }
   #define V_CI_MASK1111       DECL_VECUINT4{ -1, -1, -1, -1 }
+#endif
 #endif
 
 #undef REPLICATE

@@ -3,7 +3,11 @@
 #Platform ?= macosx ;
 if $(OS) = NT {
   Platform ?= win64 ;
-  PlatformSpec ?= clang ;
+  if $(Platform) = winarm64 {
+    PlatformSpec ?= vc16 ;
+  } else {
+    PlatformSpec ?= clang ;
+  }
 }
 
 Root    ?= ../../.. ;
@@ -71,7 +75,7 @@ UseProgLibs =
 
 #UseRootLibs = xblades2/prog/anim ;
 
-if $(Platform) in win32 win64 {
+if $(Platform) in win32 win64 winarm64 {
   UseProgLibs +=
     engine/drv/hid_mouse
     engine/drv/hid_keyboard

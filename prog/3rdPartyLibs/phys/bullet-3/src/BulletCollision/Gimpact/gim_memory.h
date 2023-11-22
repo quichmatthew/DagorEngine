@@ -35,7 +35,7 @@ email: projectileman@yahoo.com
 #include "gim_math.h"
 #include <string.h>
 
-#ifdef PREFETCH
+#ifdef PREFETCH && !defined(_M_ARM64)
 #include <xmmintrin.h>  // for prefetch
 #define pfval 64
 #define pfval2 128

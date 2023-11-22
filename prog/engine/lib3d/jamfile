@@ -50,7 +50,7 @@ Sources =
 
 CPPopt = -D__B_CORE ;
 
-if $(Platform) in iOS android nswitch
+if $(Platform) in iOS android winarm64 nswitch
 {
   Sources += MaskedOcclusionCulling_neon.cpp ;
 }
