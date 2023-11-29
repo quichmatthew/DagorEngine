@@ -225,6 +225,7 @@ public:
   void unlockRead()
   {
     size_t rcount = rtlsGet(1);
+    if (rcount == 0) { return; }
     G_FAST_ASSERT(rcount != 0); // if triggered then it's attempt to unlock not locked for read (by this thread) lock (or lock/unlock
                                 // inbalance)
     if (--rcount == 0)

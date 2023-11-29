@@ -55,7 +55,11 @@ static inline void fill_with_debug_pattern(char *beg, char *end)
   G_FAST_ASSERT(end >= beg);
   G_FAST_ASSERT(!(uintptr_t(beg) & 15));
   G_FAST_ASSERT(!(uintptr_t(end) & 15));
+#if defined(_M_ARM64)
+  static const vec4i_const DEBUG_PATTERN = v_make_vec4i(0x7ffbffff, 0x7ffbffff, 0x7ffbffff, 0x7ffbffff);
+#else
   static const vec4i_const DEBUG_PATTERN = {0x7ffbffff, 0x7ffbffff, 0x7ffbffff, 0x7ffbffff};
+#endif
   vec4f pattern = (vec4f)DEBUG_PATTERN;
   char *maxEnd = beg + 4096, *end_ = end < maxEnd ? end : maxEnd; // cap of how much memory we filling up for debug (for perfomance)
   for (; beg < end_; beg += 16)

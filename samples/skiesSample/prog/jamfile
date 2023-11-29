@@ -13,6 +13,10 @@ if $(OS) = NT {
   PlatformSpec ?= clang ;
 }
 
+if $(Platform) = winarm64 {
+    PlatformSpec = vc16 ;
+}
+
 include $(Root)/prog/_jBuild/defaults.jam ;
 
 TargetType  = exe ;
