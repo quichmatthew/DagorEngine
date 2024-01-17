@@ -66,6 +66,9 @@ if $(Platform) = android || ( $(Platform) = macosx && $(MacOSXArch) = arm64 ) {
   Sources +=
     src/impl_x86_windows.c
   ;
+  if $(Platform) = winarm64 {
+    Copt += -DCPU_FEATURES_MOCK_CPUID_X86
+  }
 } else {
   # nswitch
   # tvOS

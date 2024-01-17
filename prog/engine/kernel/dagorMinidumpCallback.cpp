@@ -306,7 +306,7 @@ BOOL CALLBACK DagorHwException::minidump_callback(PVOID callback_param, const PM
       {
         data->excThread.stack.from = callback_input->Thread.StackEnd;
         data->excThread.stack.to = callback_input->Thread.StackBase;
-#if _TARGET_64BIT
+#if _TARGET_64BIT && !defined(_M_ARM64)
         memcpy(&callback_input->Thread.Context.Xmm0, &data->eptr->ContextRecord->Xmm0, sizeof(M128A) * 16); //-V512
 #endif
       }
@@ -319,6 +319,7 @@ BOOL CALLBACK DagorHwException::minidump_callback(PVOID callback_param, const PM
       if (!(callback_output->ThreadWriteFlags & ThreadWriteStack))
       {
         // ThreadWriteContext saves stack, so we need to strip it manually
+#if !defined(_M_ARM64)
 #if _TARGET_64BIT
         uintptr_t sp = callback_input->Thread.Context.Rsp;
 #else
@@ -333,6 +334,7 @@ BOOL CALLBACK DagorHwException::minidump_callback(PVOID callback_param, const PM
           else
             callback_output->ThreadWriteFlags = ThreadWriteThread;
         }
+#endif // !defined(_M_ARM64)
       }
       return TRUE;
 

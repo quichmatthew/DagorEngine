@@ -706,6 +706,46 @@ VECTORCALL VECMATH_FINLINE vec4f v_plane_dist(plane3f a, vec3f b) { return v_spl
 
 VECTORCALL VECMATH_FINLINE vec4f v_perm_yzxz(vec4f a) { return __builtin_shufflevector(a, a, 1, 2, 0, 2); }
 
+VECTORCALL VECMATH_FINLINE void v_mat_33cu_from_mat33(float * __restrict m33, const mat33f& tm)
+{
+  vec4f v0 = v_perm_xyzd(tm.col0, v_splat_x(tm.col1));
+  vec4f v1 = v_perm_xyab(v_rot_1(tm.col1), tm.col2);
+  v_stu(m33 + 0, v0);
+  v_stu(m33 + 4, v1);
+  m33[8] = v_extract_z(tm.col2);
+}
+
+VECTORCALL VECMATH_FINLINE void v_mat_43ca_from_mat44(float * __restrict m43, const mat44f &tm)
+{
+  v_mat_43cu_from_mat44(m43, tm);
+}
+
+VECTORCALL VECMATH_FINLINE void v_mat_43cu_from_mat44(float * __restrict m43, const mat44f &tm)
+{
+  v_stu_p3(m43 + 0, tm.col0);
+  v_stu_p3(m43 + 3, tm.col1);
+  v_stu_p3(m43 + 6, tm.col2);
+  v_stu_p3(m43 + 9, tm.col3);
+}
+
+//mat44f from unaligned TMatrix
+VECTORCALL VECMATH_FINLINE void v_mat44_make_from_43cu(mat44f &tmV, const float *const __restrict m43)
+{
+  tmV.col0 = v_and(v_ldu(m43 + 0), (vec4f)V_CI_MASK1110);
+  tmV.col1 = v_and(v_ldu(m43 + 3), (vec4f)V_CI_MASK1110);
+  tmV.col2 = v_and(v_ldu(m43 + 6), (vec4f)V_CI_MASK1110);
+  tmV.col3 = v_add(v_and(v_rot_1(v_ldu(m43 + 8)), (vec4f)V_CI_MASK1110), V_C_UNIT_0001);
+}
+
+//mat44f from aligned TMatrix
+VECTORCALL VECMATH_FINLINE void v_mat44_make_from_43ca(mat44f &tmV, const float *const __restrict m43)
+{
+  tmV.col0 = v_and(v_ld(m43 + 0), (vec4f)V_CI_MASK1110);
+  tmV.col1 = v_and(v_ldu(m43 + 3), (vec4f)V_CI_MASK1110);
+  tmV.col2 = v_and(v_ldu(m43 + 6), (vec4f)V_CI_MASK1110);
+  tmV.col3 = v_add(v_and(v_rot_1(v_ldu(m43 + 8)), (vec4f)V_CI_MASK1110), V_C_UNIT_0001);
+}
+
 VECTORCALL VECMATH_FINLINE void v_mat44_ident(mat44f &dest)
 {
   dest.col3 = V_C_UNIT_0001;

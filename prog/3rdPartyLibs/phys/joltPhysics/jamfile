@@ -42,6 +42,7 @@ if $(Platform) in win32 win64 winarm64 { CPPopt += -D_CRT_SECURE_NO_WARNINGS -D_
 if $(Config) in dev dbg { _SrcDirs += Jolt/Renderer ; }
 
 if $(Platform) = linux64 || $(PlatformSpec) in clang clang64 {
+  if $(Platform) in win32 win64 winarm64 xboxOne scarlett {
     CPPopt += -fp:fast /clang:-fno-unsafe-math-optimizations /clang:-mno-fma ;
   } else {
     CPPopt += -ffast-math ;

@@ -36,6 +36,8 @@ struct MinidumpThreadData
 
   void setRegisters(const CONTEXT &ctx)
   {
+#if !defined(_M_ARM64)
+
 #if _TARGET_64BIT
     stackPtr = ctx.Rsp;
     const int64_t *regsSrc = (int64_t *)&ctx.Rax;
@@ -45,6 +47,7 @@ struct MinidumpThreadData
 #endif
     for (uint32_t i = 0; i < regsCount; i++)
       regs[i] = regsSrc[i];
+#endif // !defined(_M_ARM64)
   }
 };
 

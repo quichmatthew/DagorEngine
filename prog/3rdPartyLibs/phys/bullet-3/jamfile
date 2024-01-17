@@ -26,7 +26,7 @@ local _SrcDirs =
   #src/Bullet3Serialize/Bullet2FileLoader
 ;
 
-if $(Platform) in win32 win64 macosx linux64 android {
+if $(Platform) in win32 win64 winarm64 macosx linux64 android {
   _SrcDirs +=
     src/Bullet3OpenCL/BroadphaseCollision
     src/Bullet3OpenCL/Initialize
